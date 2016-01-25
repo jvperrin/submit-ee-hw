@@ -12,9 +12,9 @@
 HW_NAME=$(basename "$PWD")
 SERVER="cory.eecs.berkeley.edu"
 
-read -p "What are the last 2 or 3 letters of your login? (ee16b-xxx) " ee_login
+read -p "What is your whole login? (e.g. ee16b-xxx) " EE_LOGIN
 
-SSH_ADDR="$ee_login@$SERVER"
+SSH_ADDR="$EE_LOGIN@$SERVER"
 
 if [[ $HW_NAME == *"grades" ]]
 then
