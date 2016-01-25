@@ -41,8 +41,18 @@ else
   if [ ! -f "$HW_NAME.pdf" ]
   then
     echo "Making a pdf of the photos..."
-    # Find all image files and convert them into a pdf
-    convert $(find . -type f -exec file {} \; | awk -F: '{ if ($2 ~/image/) print $1}' | sort) uncompressed.pdf
+    # Find all image files to convert
+    PHOTOS=$(find . -type f -exec file {} \; | awk -F: '{ if ($2 ~/image/) print $1}' | sort)
+
+    # If no images found, raise an error
+    if [ -z $PHOTOS ]
+    then
+      echo "No images or PDF found, are you in the right directory?"
+      exit 1
+    fi
+
+    # Convert the photos to a PDF
+    convert $PHOTOS uncompressed.pdf
 
     echo "Compressing the pdf..."
     pdf2ps uncompressed.pdf output.ps
