@@ -14,13 +14,15 @@ SERVER="cory.eecs.berkeley.edu"
 
 read -p "What are the last 2 or 3 letters of your login? (ee16b-xxx) " ee_login
 
+SSH_ADDR="$ee_login@$SERVER"
+
 if [[ $HW_NAME == *"grades" ]]
 then
   echo "Submitting self-grades!"
 
   echo "Uploading the grades to the instructional servers..."
-  ssh $ee_login@$SERVER "mkdir -p ~/classes/ee16b/$HW_NAME"
-  scp $HW_NAME.txt ee16b:~/classes/ee16b/$HW_NAME/
+  ssh $SSH_ADDR "mkdir -p ~/classes/ee16b/$HW_NAME"
+  scp $HW_NAME.txt $SSH_ADDR:~/classes/ee16b/$HW_NAME/
 
 else
   echo "Submitting a homework assignment!"
@@ -51,18 +53,18 @@ else
   fi
 
   echo "Uploading the pdf to the instructional servers..."
-  ssh ee16b "mkdir -p ~/classes/ee16b/$HW_NAME"
+  ssh $SSH_ADDR "mkdir -p ~/classes/ee16b/$HW_NAME"
   if [ "$IPYNB" = true ]
   then
-    scp $HW_NAME.pdf $HW_NAME.ipynb ee16b:~/classes/ee16b/$HW_NAME/
+    scp $HW_NAME.pdf $HW_NAME.ipynb $SSH_ADDR:~/classes/ee16b/$HW_NAME/
   else
-    scp $HW_NAME.pdf ee16b:~/classes/ee16b/$HW_NAME/
-    ssh ee16b "touch ~/classes/ee16b/$HW_NAME/$HW_NAME.ipynb"
+    scp $HW_NAME.pdf $SSH_ADDR:~/classes/ee16b/$HW_NAME/
+    ssh $SSH_ADDR "touch ~/classes/ee16b/$HW_NAME/$HW_NAME.ipynb"
   fi
 fi
 
 echo "Submitting documents to glookup..."
-ssh ee16b "
+ssh $SSH_ADDR "
   cd ~/classes/ee16b/$HW_NAME
   submit $HW_NAME
   echo 'Submitted successfully! Time submitted:'
