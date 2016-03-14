@@ -17,3 +17,7 @@ of trying to create a new one out of images it finds. So if you make your PDFs
 by using some scanner app or similar, then that works fine too, there's just
 one less step to do!
 
+When making a PDF out of the images, this script orders the pages by the image
+name sorting order, so if they are timestamped, they should be ordered
+correctly to the order in which you took the photos.
+
