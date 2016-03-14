@@ -29,7 +29,7 @@ else
 
   # Ask about IPython submission
   while true; do
-    read -p "Are you submitting a non-empty IPython notebook? (y/n) " yn
+    read -p "Are you submitting an IPython notebook? (y/n) " yn
     case $yn in
       [Yy]* ) IPYNB=true; break;;
       [Nn]* ) IPYNB=false; break;;
@@ -69,7 +69,6 @@ else
     scp $HW_NAME.pdf $HW_NAME.ipynb $SSH_ADDR:~/classes/ee16b/$HW_NAME/
   else
     scp $HW_NAME.pdf $SSH_ADDR:~/classes/ee16b/$HW_NAME/
-    ssh $SSH_ADDR "touch ~/classes/ee16b/$HW_NAME/$HW_NAME.ipynb"
   fi
 fi
 
